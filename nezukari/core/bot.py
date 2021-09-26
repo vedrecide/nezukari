@@ -19,7 +19,8 @@ class Bot(hikari.GatewayBot):
     async def on_started(self, _: hikari.ShardReadyEvent) -> None:
         builder = (
             lavasnek_rs.LavalinkBuilder(_.my_user.id, Config.token)
-            .set_host(Config.host).set_password(Config.password)
+            .set_host(Config.host)
+            .set_password(Config.password)
         )
         lava_client = await builder.build(EventHandler())
         self.data.lavalink = lava_client

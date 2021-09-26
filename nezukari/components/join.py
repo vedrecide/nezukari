@@ -2,6 +2,7 @@ import tanjun
 
 join_component = tanjun.Component()
 
+
 async def _join(ctx: tanjun.abc.Context) -> int:
     states = ctx.shards.cache.get_voice_states_view_for_guild(ctx.get_guild())
     voice_state = list(filter(lambda i: i.user_id == ctx.author.id, states.iterator()))
@@ -23,6 +24,7 @@ async def _join(ctx: tanjun.abc.Context) -> int:
     await ctx.shards.data.lavalink.create_session(connection_info)
     return channel_id
 
+
 @join_component.with_slash_command
 @tanjun.as_slash_command("join", "Join's a voice channel")
 async def join(ctx: tanjun.abc.Context) -> None:
@@ -30,6 +32,7 @@ async def join(ctx: tanjun.abc.Context) -> None:
 
     if channel_id:
         await ctx.respond(f"Joined <#{channel_id}>")
+
 
 @tanjun.as_loader
 def load(client: tanjun.Client) -> None:

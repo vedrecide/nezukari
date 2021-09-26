@@ -4,7 +4,6 @@ log = logging.getLogger(__name__)
 
 
 class EventHandler:
-
     async def track_start(self, _lava_client, event):
         log.info("Track started on guild: %s", event.guild_id)
 

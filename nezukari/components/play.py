@@ -32,7 +32,7 @@ async def play(ctx: tanjun.abc.Context, song: str) -> None:
 
     em = hikari.Embed(
         title="Added to queue",
-        description=f"[{query_information.tracks[0].info.title}]({query_information.tracks[0].info.uri})"
+        description=f"[{query_information.tracks[0].info.title}]({query_information.tracks[0].info.uri})",
     )
     await ctx.respond(embed=em)
 

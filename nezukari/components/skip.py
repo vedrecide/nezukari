@@ -5,6 +5,7 @@ from typing import Union
 
 skip_component = tanjun.Component()
 
+
 @skip_component.with_slash_command
 @tanjun.as_slash_command("skip", "Skip's the current song")
 async def skip(ctx: tanjun.abc.Context) -> Union[hikari.Message, None]:
@@ -19,11 +20,11 @@ async def skip(ctx: tanjun.abc.Context) -> Union[hikari.Message, None]:
         await ctx.shards.data.lavalink.stop(ctx.guild_id)
 
     em = hikari.Embed(
-        title="Skipped",
-        description=f"[{skip.track.info.title}]({skip.track.info.uri})"
+        title="Skipped", description=f"[{skip.track.info.title}]({skip.track.info.uri})"
     )
 
     await ctx.respond(embed=em)
+
 
 @tanjun.as_loader
 def load(client: tanjun.Client) -> None:

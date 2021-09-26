@@ -1,5 +1,6 @@
 import tanjun
 import lavasnek_rs
+import hikari
 
 from nezukari.components.join import _join
 
@@ -29,7 +30,11 @@ async def play(ctx: tanjun.abc.Context, song: str) -> None:
         await ctx.respond("Use `/join` first")
         return
 
-    await ctx.respond(f"Added to queue: {query_information.tracks[0].info.title}")
+    em = hikari.Embed(
+        title="Added to queue",
+        description=f"[{query_information.tracks[0].info.title}]({query_information.tracks[0].info.uri})"
+    )
+    await ctx.respond(embed=em)
 
 
 @tanjun.as_loader

@@ -12,7 +12,7 @@ async def resume(ctx: tanjun.abc.Contex) -> None:
         return await ctx.respond("Nothing is being played at the moment")
 
     await ctx.shards.data.lavalink.resume(ctx.guild_id)
-    await ctx.respond(f"Resumed successfully")
+    await ctx.respond("Resumed successfully")
 
 
 @tanjun.as_loader

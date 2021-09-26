@@ -12,7 +12,7 @@ async def pause(ctx: tanjun.abc.Contex) -> None:
         return await ctx.respond("Nothing is being played at the moment")
 
     await ctx.shards.data.lavalink.pause(ctx.guild_id)
-    await ctx.respond(f"Paused successfully")
+    await ctx.respond("Paused successfully")
 
 
 @tanjun.as_loader

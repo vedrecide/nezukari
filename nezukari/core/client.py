@@ -1,6 +1,7 @@
 import tanjun
 import typing
 import hikari
+import os
 
 from nezukari.core.bot import Bot
 
@@ -8,6 +9,18 @@ from nezukari.core.bot import Bot
 class Client(tanjun.Client):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+
+    @property
+    def _modules(self) -> typing.List[str]:
+        return os.listdir("./nezukari/components")
+
+    def _load_modules(self):
+        for modooles in self._modules:
+            if modooles.endswith(".py"):
+                try:
+                    super().load_modules(f"nezukari.components.{modooles[:-3]}")
+                except Exception as e:
+                    raise e
 
     @classmethod
     def from_gateway_bot(

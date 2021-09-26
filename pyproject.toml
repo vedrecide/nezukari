@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "nezukari"
+version = "0.1.0"
+description = "A music bot made in Hikari & Tanjun"
+authors = ["1olipop"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.9.0,<3.10"
+hikari = {git = "https://github.com/hikari-py/hikari"}
+hikari-tanjun = {git = "https://github.com/FasterSpeeding/Tanjun"}
+lavasnek-rs = {git = "https://github.com/vicky5124/lavasnek_rs"}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

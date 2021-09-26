@@ -1,0 +1,3 @@
+git+https://github.com/hikari-py/hikari
+git+https://github.com/FasterSpeeding/Tanjun
+git+https://github.com/vicky5124/lavasnek_rs

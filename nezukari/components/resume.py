@@ -11,8 +11,11 @@ async def resume(ctx: tanjun.abc.Context) -> None:
     if not node or not node.now_playing:
         return await ctx.respond("Nothing is being played at the moment")
 
-    await ctx.shards.data.lavalink.resume(ctx.guild_id)
-    await ctx.respond("Resumed successfully")
+    if node.is_paused:
+        await ctx.shards.data.lavalink.resume(ctx.guild_id)
+        await ctx.respond("Resumed successfully")
+    else:
+        await ctx.respond("It's already resumed >:(")
 
 
 @tanjun.as_loader

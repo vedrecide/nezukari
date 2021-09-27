@@ -5,7 +5,7 @@ resume_component = tanjun.Component()
 
 @resume_component.with_slash_command
 @tanjun.as_slash_command("resume", "Resume the song that is paused")
-async def resume(ctx: tanjun.abc.Contex) -> None:
+async def resume(ctx: tanjun.abc.Context) -> None:
     node = await ctx.shards.data.lavalink.get_guild_node(ctx.guild_id)
 
     if not node or not node.now_playing:

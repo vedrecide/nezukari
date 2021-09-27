@@ -24,4 +24,4 @@ async def volume(ctx: tanjun.abc.Context, volume: int) -> Union[hikari.Message, 
 
 @tanjun.as_loader
 def load(client: tanjun.Client) -> None:
-    client.add_component(client.copy())
+    client.add_component(volume_component.copy())

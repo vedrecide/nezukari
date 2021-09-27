@@ -5,7 +5,7 @@ pause_component = tanjun.Component()
 
 @pause_component.with_slash_command
 @tanjun.as_slash_command("pause", "Pause the current song being played")
-async def pause(ctx: tanjun.abc.Contex) -> None:
+async def pause(ctx: tanjun.abc.Context) -> None:
     node = await ctx.shards.data.lavalink.get_guild_node(ctx.guild_id)
 
     if not node or not node.now_playing:

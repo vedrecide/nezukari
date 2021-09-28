@@ -1,13 +1,30 @@
 import logging
+import hikari
 
 log = logging.getLogger(__name__)
 
 
 class EventHandler:
-    async def track_start(self, _lava_client, event):
-        log.info("Track started on guild: %s", event.guild_id)
+    def __init__(self, bot) -> None:
+        self.bot = bot
 
-    async def track_finish(self, _lava_client, event):
+    async def track_start(self, lavalink, event):
+        log.info("Track started on guild: %s", event.guild_id)
+        node = await lavalink.get_guild_node(event.guild_id)
+
+        if node:
+            data = await node.get_data()
+            channel_id = data[event.guild_id]
+            channel = self.bot.cache.get_guild_channel(channel_id)
+
+            em = hikari.Embed(
+                title="Now Playing",
+                description=f"[{node.now_playing.track.info.title}]({node.now_playing.track.info.uri})",
+            )
+
+            await channel.send(embed=em)
+
+    async def track_finish(self, lavalink, event):
         log.info("Track finished on guild: %s", event.guild_id)
 
     async def track_exception(self, lavalink, event):

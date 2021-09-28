@@ -22,7 +22,8 @@ class Bot(hikari.GatewayBot):
             .set_host(Config.host)
             .set_password(Config.password)
         )
-        lava_client = await builder.build(EventHandler())
+        event_handler = EventHandler(self)
+        lava_client = await builder.build(event_handler)
         self.data.lavalink = lava_client
 
     def run(self) -> None:

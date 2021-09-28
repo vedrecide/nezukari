@@ -10,6 +10,7 @@ python = ">=3.9.0,<3.10"
 hikari = {git = "https://github.com/hikari-py/hikari"}
 hikari-tanjun = {git = "https://github.com/FasterSpeeding/Tanjun"}
 lavasnek-rs = {git = "https://github.com/vicky5124/lavasnek_rs"}
+aiohttp = "^3.7.4"
 
 [tool.poetry.dev-dependencies]
 

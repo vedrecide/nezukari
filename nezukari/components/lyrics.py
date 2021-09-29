@@ -40,7 +40,7 @@ async def lyrics_command(
         if not node or not node.now_playing:
             return await ctx.respond("No song is being played not right now")
 
-        lyrics = await get_lyrics(node.now_playing.track.info.title[0:17])
+        lyrics = await get_lyrics(node.now_playing.track.info.title)
         if lyrics == "Couldn't find the lyrics":
             return await ctx.respond("Couldn't find the lyrics, sorry :c")
 

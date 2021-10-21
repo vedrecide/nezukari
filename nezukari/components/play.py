@@ -14,8 +14,8 @@ play_component = tanjun.Component()
 async def play(ctx: tanjun.abc.Context, song: str) -> Union[hikari.Message, None]:
     con = await ctx.shards.data.lavalink.get_guild_gateway_connection_info(ctx.guild_id)
 
-    #if not con:
-        #await _join(ctx)
+    # if not con:
+    # await _join(ctx)
 
     query_information = await ctx.shards.data.lavalink.auto_search_tracks(song)
 
@@ -23,7 +23,7 @@ async def play(ctx: tanjun.abc.Context, song: str) -> Union[hikari.Message, None
         return await ctx.respond("Could not find any video of the search query.")
 
     await _join(ctx)
-    
+
     try:
         await ctx.shards.data.lavalink.play(
             ctx.guild_id, query_information.tracks[0]

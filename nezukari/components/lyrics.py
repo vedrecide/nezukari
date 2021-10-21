@@ -41,25 +41,23 @@ async def lyrics_command(
             (
                 hikari.UNDEFINED,
                 hikari.Embed(
-                    title=f"Search result for \"{song}\"",
-                    description=page
-                ).set_footer(text=f"Page {index + 1}")
+                    title=f'Search result for "{song}"', description=page
+                ).set_footer(text=f"Page {index + 1}"),
             )
             for page, index in yuyo.sync_paginate_string(
                 iter(lyrics.splitlines()), line_limit=15
             )
         )
 
-        res = yuyo.ComponentPaginator(
-            pages,
-            authors=[ctx.author.id]
-        )
+        res = yuyo.ComponentPaginator(pages, authors=[ctx.author.id])
 
         if not (first_response := await res.get_next_entry()):
             pass
 
         content, embed = first_response
-        message = await ctx.respond(content=content, embed=embed, component=res, ensure_result=True)
+        message = await ctx.respond(
+            content=content, embed=embed, component=res, ensure_result=True
+        )
         ctx.shards.component_client.add_executor(message, res)
     else:
         if not node or not node.now_playing:
@@ -72,11 +70,16 @@ async def lyrics_command(
         pages = (
             (
                 hikari.UNDEFINED,
-                hikari.Embed(
-                    description=page
-                ).set_author(name=f"{node.now_playing.track.info.title}", url=f"{node.now_playing.track.info.uri}").set_footer(text=f"Page {index + 1}")
+                hikari.Embed(description=page)
+                .set_author(
+                    name=f"{node.now_playing.track.info.title}",
+                    url=f"{node.now_playing.track.info.uri}",
+                )
+                .set_footer(text=f"Page {index + 1}"),
             )
-            for page, index in yuyo.sync_paginate_string(iter(lyrics.splitlines()), line_limit=15)
+            for page, index in yuyo.sync_paginate_string(
+                iter(lyrics.splitlines()), line_limit=15
+            )
         )
 
         res = yuyo.ComponentPaginator(
@@ -88,14 +91,16 @@ async def lyrics_command(
                 yuyo.pagination.STOP_SQUARE,
                 yuyo.pagination.RIGHT_TRIANGLE,
                 yuyo.pagination.RIGHT_DOUBLE_TRIANGLE,
-            )
+            ),
         )
 
         if not (first_response := await res.get_next_entry()):
             pass
 
         content, embed = first_response
-        message = await ctx.respond(content=content, embed=embed, component=res, ensure_result=True)
+        message = await ctx.respond(
+            content=content, embed=embed, component=res, ensure_result=True
+        )
         ctx.shards.component_client.add_executor(message, res)
 
 

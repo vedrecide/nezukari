@@ -1,8 +1,11 @@
 import tanjun
 import hikari
 import aiohttp
+import yuyo
 
 from typing import Optional, Union
+
+from yuyo import components
 
 
 async def get_lyrics(name: str) -> str:
@@ -34,8 +37,30 @@ async def lyrics_command(
         if lyrics == "Couldn't find the lyrics":
             return await ctx.respond("Couldn't find the lyrics, sorry :c")
 
-        em = hikari.Embed(description=lyrics).set_author(name=f'Lyrics of "{song}"')
-        await ctx.respond(embed=em)
+        pages = (
+            (
+                hikari.UNDEFINED,
+                hikari.Embed(
+                    title=f"Search result for \"{song}\"",
+                    description=page
+                ).set_footer(text=f"Page {index + 1}")
+            )
+            for page, index in yuyo.sync_paginate_string(
+                iter(lyrics.splitlines()), line_limit=15
+            )
+        )
+
+        res = yuyo.ComponentPaginator(
+            pages,
+            authors=[ctx.author.id]
+        )
+
+        if not (first_response := await res.get_next_entry()):
+            pass
+
+        content, embed = first_response
+        message = await ctx.respond(content=content, embed=embed, component=res, ensure_result=True)
+        ctx.shards.component_client.add_executor(message, res)
     else:
         if not node or not node.now_playing:
             return await ctx.respond("No song is being played not right now")
@@ -44,11 +69,34 @@ async def lyrics_command(
         if lyrics == "Couldn't find the lyrics":
             return await ctx.respond("Couldn't find the lyrics, sorry :c")
 
-        em = hikari.Embed(description=lyrics).set_author(
-            name=f"{node.now_playing.track.info.title}",
-            url=f"{node.now_playing.track.info.uri}",
+        pages = (
+            (
+                hikari.UNDEFINED,
+                hikari.Embed(
+                    description=page
+                ).set_author(name=f"{node.now_playing.track.info.title}", url=f"{node.now_playing.track.info.uri}").set_footer(text=f"Page {index + 1}")
+            )
+            for page, index in yuyo.sync_paginate_string(iter(lyrics.splitlines()), line_limit=15)
         )
-        await ctx.respond(embed=em)
+
+        res = yuyo.ComponentPaginator(
+            pages,
+            authors=[ctx.author.id],
+            triggers=(
+                yuyo.pagination.LEFT_DOUBLE_TRIANGLE,
+                yuyo.pagination.LEFT_TRIANGLE,
+                yuyo.pagination.STOP_SQUARE,
+                yuyo.pagination.RIGHT_TRIANGLE,
+                yuyo.pagination.RIGHT_DOUBLE_TRIANGLE,
+            )
+        )
+
+        if not (first_response := await res.get_next_entry()):
+            pass
+
+        content, embed = first_response
+        message = await ctx.respond(content=content, embed=embed, component=res, ensure_result=True)
+        ctx.shards.component_client.add_executor(message, res)
 
 
 @tanjun.as_loader

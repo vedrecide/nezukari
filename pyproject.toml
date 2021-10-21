@@ -11,6 +11,7 @@ hikari = {git = "https://github.com/hikari-py/hikari"}
 hikari-tanjun = {git = "https://github.com/FasterSpeeding/Tanjun"}
 lavasnek-rs = {git = "https://github.com/vicky5124/lavasnek_rs"}
 aiohttp = "^3.7.4"
+hikari-yuyo = {git = "https://github.com/fasterSpeeding/yuyo"}
 
 [tool.poetry.dev-dependencies]
 

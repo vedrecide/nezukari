@@ -1,10 +1,12 @@
 import os
 import dotenv
 
+from typing import Final
+
 dotenv.load_dotenv()
 
 
 class Config:
-    token = os.getenv("BOT_TOKEN")
-    host = os.getenv("LAVALINK_HOST")
-    password = os.getenv("LAVALINK_PASSWORD")
+    token: Final[str] = os.getenv("BOT_TOKEN")
+    host: Final[str] = os.getenv("LAVALINK_HOST")
+    password: Final[str] = os.getenv("LAVALINK_PASSWORD")

@@ -3,6 +3,6 @@
 
 # [![Nezukari](https://discord.com/api/guilds/830748949933064202/embed.png)](https://discord.gg/ePSUh6THCw)
 
-A music bot made with Hikari & Tanjun (Currently being built)<br>
+A really simple music bot made with Hikari & Tanjun<br>
 
 </div>
